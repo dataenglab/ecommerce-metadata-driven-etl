@@ -1,32 +1,76 @@
 # ecommerce-metadata-driven-etl
-This repository contains the programmatic artifact developed as part of the M.Sc. Data Engineering Master's Thesis at **IU International University of Applied Sciences**.
 
-The system operationalizes a configuration-driven Batch ETL framework designed for small and medium-sized e-commerce enterprises (SMEs).
+Artifact of the Master's thesis *Development and Evaluation of a Configuration-Driven ETL Pipeline for
+E-Commerce Data Integration and Analytics* (Kamilla Garifullina, M.Sc. Computer Science,
+IU International University of Applied Sciences, 2026).
 
-## 🚀 Key Architectural Features
-- **Declarative Quality Control (YAML):** Structural validation driven by centralized metadata configurations (`config/pipeline_config.yaml`).
-- **Graceful Fault Isolation (Quarantine):** Automatic routing of malformed rows into `etl.quarantine_staging` without halting execution, maintaining financial reconciliation balance.
-- **GDPR Privacy Compliance:** In-stream pseudonymization applying keyed **HMAC-SHA-256** signatures to PII before database commits.
-- **Automated Verification:** End-to-end reliability verification via an advanced test harness covering structural errors and critical contract violations.
+A generic Python engine, controlled by one declarative YAML file, loads e-commerce order, clickstream and
+payment files into a PostgreSQL 16 star schema with SCD Type 2 dimensions. The artifact was developed and
+evaluated following the Design Science Research Methodology (Peffers et al., 2007).
 
-## 🛠️ Technology Stack
-- **Engine Layer:** Python 3.13
-- **Warehouse Layer:** PostgreSQL 16 (Structured via Kimball Star Schema)
-- **Database Driver:** psycopg2
-- **Metadata Parser:** PyYAML 6.0
+## Features
 
-## 📂 Repository Structure
-- `config/pipeline_config.yaml` - Declarative metadata validation rules.
-- `scripts/schema.sql` - DDL scripts for target star schema, quarantine, and log layers.
-- `src/etl_engine.py` - Core transactional Python ETL data processing engine.
-- `test_harness.py` - Automated execution script verifying pipeline resilience.
+- **Declarative configuration** (`config/pipeline_config.yaml`): source contracts, column types and rules,
+  personal-data actions and dimensions; the engine contains no source-specific code.
+- **Row-level quarantine**: defective records go to `etl.quarantine_staging` with an error code;
+  the rest of the file is loaded.
+- **Reconciliation**: every file satisfies rows read = rows inserted + rows quarantined, checked in Python
+  and by a database constraint.
+- **Pseudonymization**: customer identifiers and e-mail addresses are replaced by keyed HMAC-SHA-256 hashes
+  before anything is written; names are dropped and postcodes truncated. The output is pseudonymized, not
+  anonymized, personal data.
+- **Audit log**: one entry per file and run in `etl.pipeline_logs`, with status, duration and row counts.
 
-## 💻 How to Run the Verification
-To run the automated verification suite against a local PostgreSQL instance, execute the following command from the root directory:
+## Repository structure
+
+| Path | Content |
+| --- | --- |
+| `src/etl_engine.py` | ETL engine |
+| `config/pipeline_config.yaml` | Pipeline configuration |
+| `scripts/schema.sql` | Warehouse DDL (PostgreSQL 16) |
+| `test_harness.py` | End-to-end verification (two scenarios, 18 checks) |
+| `chapter5_reproducibility/` | Data generator, benchmark and evaluation scripts, reference results (see its README) |
+| `figures/` | Data and script for Figures 5–8 of the thesis |
+
+## Requirements
+
+- Python 3.12 or later
+- `pip install pandas pyyaml psycopg2-binary` (add `matplotlib` to regenerate the figures)
+- PostgreSQL 16, for example in Docker:
 
 ```bash
-python test_harness.py --admin-dsn "host=localhost user=postgres dbname=postgres password=YOUR_PASSWORD"
+docker run --name iu-thesis-postgres -e POSTGRES_PASSWORD=<password> -p 5433:5432 -d postgres:16
 ```
-*Note: Add `--drop-db` at the end of the command if you wish to tear down the temporary testing database after execution.*
----
-*Developed strictly under the Design Science Research Methodology (DSRM) framework (Peffers et al., 2007).*
+
+## Running the verification
+
+From the repository root:
+
+```bash
+python test_harness.py --engine src/etl_engine.py --config config/pipeline_config.yaml \
+  --schema scripts/schema.sql \
+  --admin-dsn "host=localhost port=5433 user=postgres dbname=postgres password=<password>"
+```
+
+Use `port=5432` if PostgreSQL is installed locally rather than in the Docker container above.
+Add `--drop-db` to remove the temporary test database afterwards. Expected result:
+`RESULT: 18 of 18 checks passed`.
+
+The harness creates its own database `etl_harness`, sets a test salt for pseudonymization and runs the
+unmodified engine as a subprocess. A production run reads the secret salt from the environment variable
+`ETL_PII_SALT` instead.
+
+## Reproducing Chapter 5
+
+See `chapter5_reproducibility/README.md` for the benchmark (four volume tiers, five repetitions each),
+the change-effort scenarios S1–S4 and the analytical queries Q1–Q4.
+
+## Reproducing Figures 5–8
+
+The CSV files in `figures/data/` contain the measured values reported in Tables 16, 17, 20 and 21 of the
+thesis. To regenerate the figures:
+
+```bash
+cd figures
+python make_figures.py
+```
