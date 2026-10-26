@@ -1,0 +1,37 @@
+TIER | n reps | wall s (mean|median|range) | engine CPU % | DB CPU % | peak RSS MB | exits | all success | reconciled
+tier_10000 5 4.8 | 4.8 | 4.6-5.1 61 | 61 | 58-63 27 | 27 | 25-30 103 | 103 | 103-104 {0} True True
+tier_50000 5 30.3 | 32.4 | 18.8-34.8 67 | 71 | 56-74 23 | 20 | 19-34 184 | 184 | 183-185 {0} True True
+tier_100000 5 52.2 | 50.2 | 33.5-64.7 66 | 67 | 57-73 27 | 25 | 20-36 289 | 289 | 288-289 {0} True True
+tier_1000000 5 654.3 | 700.7 | 547.6-761.3 62 | 62 | 57-65 30 | 30 | 27-36 1901 | 1816 | 1704-2161 {0} True True
+
+THROUGHPUT rows/s per dataset (rows_read / sum execution_time): mean | median | range ; exec_s mean
+tier_10000 orders 3834 | 3888 | 3609-3918 exec 2.61s files 1 read 10000 ins 9798 quar 202
+tier_10000 clickstream 12100 | 12674 | 10707-12821 exec 0.83s files 1 read 10000 ins 9799 quar 201
+tier_10000 payments 13090 | 13298 | 11312-14025 exec 0.77s files 1 read 10000 ins 9800 quar 200
+tier_10000 ALL 6232 | 6275 | 5829-6488 rows/s end-to-end, total rows 30000
+tier_50000 orders 3424 | 3066 | 2643-5530 exec 15.72s files 1 read 50000 ins 48989 quar 1011
+tier_50000 clickstream 8060 | 7230 | 6939-11754 exec 6.46s files 1 read 50000 ins 48995 quar 1005
+tier_50000 payments 7257 | 6453 | 6125-10754 exec 7.20s files 5 read 50004 ins 49000 quar 1004
+tier_50000 ALL 5229 | 4627 | 4314-8000 rows/s end-to-end, total rows 150004
+tier_100000 orders 4044 | 3015 | 2861-5956 exec 27.45s files 1 read 100000 ins 97977 quar 2023
+tier_100000 clickstream 9199 | 7582 | 6785-12404 exec 11.70s files 1 read 100000 ins 97993 quar 2007
+tier_100000 payments 9042 | 6916 | 6606-12537 exec 12.13s files 10 read 100009 ins 98000 quar 2009
+tier_100000 ALL 6097 | 5974 | 4638-8944 rows/s end-to-end, total rows 300009
+tier_1000000 orders 3070 | 2662 | 2581-4331 exec 338.58s files 1 read 1000000 ins 979757 quar 20243
+tier_1000000 clickstream 6602 | 6496 | 6159-7291 exec 151.94s files 1 read 1000000 ins 979894 quar 20106
+tier_1000000 payments 7029 | 6299 | 4645-11487 exec 155.20s files 100 read 1000099 ins 980000 quar 20099
+tier_1000000 ALL 4669 | 4282 | 3941-5478 rows/s end-to-end, total rows 3000099
+
+QUALITY (rep 1)
+tier_10000 injected 600 correct 600 wrong 0 missed 0 non-injected quarantined 3 of 29400 clean (0.0102%)
+   by code: {"orders:NULL_VIOLATION": [40, 40], "orders:TYPE_ERROR": [40, 40], "orders:ARITHMETIC_MISMATCH": [40, 40], "orders:DOMAIN_VIOLATION": [40, 40], "orders:DUPLICATE_KEY": [40, 40], "clickstream:JSON_PARSE_ERROR": [40, 40], "clickstream:NULL_VIOLATION": [40, 40], "clickstream:DOMAIN_VIOLATION": [40, 40], "clickstream:TYPE_ERROR": [40, 40], "clickstream:DUPLICATE_KEY": [40, 40], "payments:NULL_VIOLATION": [50, 50], "payments:INVALID_CURRENCY": [50, 50], "payments:NEGATIVE_AMOUNT": [50, 50], "payments:TYPE_ERROR": [50, 50]}
+   extra samples: [[['orders_001.csv', 693], "order_ts: not a valid timestamp (value '2025-10-26 02:56:54')"], [['orders_001.csv', 694], "order_ts: not a valid timestamp (value '2025-10-26 02:56:54')"], [['clickstream_001.csv', 3361], "event_ts: not a valid timestamp (value '2025-10-26T02:10:15')"]]
+tier_50000 injected 3004 correct 3003 wrong 1 missed 0 non-injected quarantined 16 of 147000 clean (0.0109%)
+   by code: {"orders:NULL_VIOLATION": [200, 200], "orders:TYPE_ERROR": [200, 200], "orders:ARITHMETIC_MISMATCH": [200, 200], "orders:DOMAIN_VIOLATION": [200, 200], "orders:DUPLICATE_KEY": [200, 200], "clickstream:JSON_PARSE_ERROR": [200, 200], "clickstream:NULL_VIOLATION": [200, 199], "clickstream:DOMAIN_VIOLATION": [200, 200], "clickstream:TYPE_ERROR": [200, 200], "clickstream:DUPLICATE_KEY": [200, 200], "payments:NULL_VIOLATION": [250, 250], "payments:INVALID_CURRENCY": [250, 250], "payments:NEGATIVE_AMOUNT": [250, 250], "payments:TYPE_ERROR": [250, 250], "payments:DUPLICATE_KEY": [4, 4]}
+   extra samples: [[['orders_001.csv', 4117], "order_ts: not a valid timestamp (value '2025-10-26 02:38:31')"], [['orders_001.csv', 5261], "order_ts: not a valid timestamp (value '2025-10-26 02:54:29')"], [['orders_001.csv', 5262], "order_ts: not a valid timestamp (value '2025-10-26 02:54:29')"]]
+tier_100000 injected 6009 correct 6008 wrong 1 missed 0 non-injected quarantined 30 of 294000 clean (0.0102%)
+   by code: {"orders:NULL_VIOLATION": [400, 400], "orders:TYPE_ERROR": [400, 400], "orders:ARITHMETIC_MISMATCH": [400, 400], "orders:DOMAIN_VIOLATION": [400, 399], "orders:DUPLICATE_KEY": [400, 400], "clickstream:JSON_PARSE_ERROR": [400, 400], "clickstream:NULL_VIOLATION": [400, 400], "clickstream:DOMAIN_VIOLATION": [400, 400], "clickstream:TYPE_ERROR": [400, 400], "clickstream:DUPLICATE_KEY": [400, 400], "payments:NULL_VIOLATION": [500, 500], "payments:INVALID_CURRENCY": [500, 500], "payments:NEGATIVE_AMOUNT": [500, 500], "payments:TYPE_ERROR": [500, 500], "payments:DUPLICATE_KEY": [9, 9]}
+   extra samples: [[['orders_001.csv', 3311], "order_ts: not a valid timestamp (value '2025-10-26 02:38:31')"], [['orders_001.csv', 4455], "order_ts: not a valid timestamp (value '2025-10-26 02:54:29')"], [['orders_001.csv', 4456], "order_ts: not a valid timestamp (value '2025-10-26 02:54:29')"]]
+tier_1000000 injected 60099 correct 60095 wrong 4 missed 0 non-injected quarantined 349 of 2940000 clean (0.0119%)
+   by code: {"orders:NULL_VIOLATION": [4000, 3999], "orders:TYPE_ERROR": [4000, 4000], "orders:ARITHMETIC_MISMATCH": [4000, 3999], "orders:DOMAIN_VIOLATION": [4000, 4000], "orders:DUPLICATE_KEY": [4000, 4000], "clickstream:JSON_PARSE_ERROR": [4000, 3999], "clickstream:NULL_VIOLATION": [4000, 4000], "clickstream:DOMAIN_VIOLATION": [4000, 3999], "clickstream:TYPE_ERROR": [4000, 4000], "clickstream:DUPLICATE_KEY": [4000, 4000], "payments:NULL_VIOLATION": [5000, 5000], "payments:INVALID_CURRENCY": [5002, 5002], "payments:NEGATIVE_AMOUNT": [5000, 5000], "payments:TYPE_ERROR": [5000, 5000], "payments:DUPLICATE_KEY": [97, 97]}
+   extra samples: [[['orders_001.csv', 718], "order_ts: not a valid timestamp (value '2025-10-26 02:01:42')"], [['orders_001.csv', 719], "order_ts: not a valid timestamp (value '2025-10-26 02:01:42')"], [['orders_001.csv', 10886], "order_ts: not a valid timestamp (value '2025-10-26 02:31:39')"]]

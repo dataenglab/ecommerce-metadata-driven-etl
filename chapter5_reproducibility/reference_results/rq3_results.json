@@ -1,0 +1,122 @@
+[
+ {
+  "scenario": "S1 renamed attribute (currency_code -> currency)",
+  "rows": 100,
+  "yaml_added": 2,
+  "yaml_removed": 2,
+  "py_added": 1,
+  "py_removed": 0,
+  "runs": {
+   "yaml_v0": {
+    "exit": 2,
+    "log": "FAILED|0|0|0|CONTRACT_VIOLATION: orders_001.csv: missing mandatory column(s) currency_code",
+    "quarantine_codes": ""
+   },
+   "yaml_changed": {
+    "exit": 0,
+    "log": "SUCCESS|100|100|0|",
+    "quarantine_codes": ""
+   },
+   "py_v0": {
+    "exit": 2,
+    "log": "FAILED|0|0|0|ContractViolation: missing mandatory column(s) currency_code",
+    "quarantine_codes": ""
+   },
+   "py_changed": {
+    "exit": 0,
+    "log": "SUCCESS|100|100|0|",
+    "quarantine_codes": ""
+   }
+  }
+ },
+ {
+  "scenario": "S2 optional column becomes mandatory (discount_amount)",
+  "rows": 100,
+  "yaml_added": 2,
+  "yaml_removed": 2,
+  "py_added": 3,
+  "py_removed": 3,
+  "runs": {
+   "yaml_v0": {
+    "exit": 0,
+    "log": "SUCCESS|100|99|1|",
+    "quarantine_codes": "ARITHMETIC_MISMATCH"
+   },
+   "yaml_changed": {
+    "exit": 0,
+    "log": "SUCCESS|100|95|5|",
+    "quarantine_codes": "NULL_VIOLATION"
+   },
+   "py_v0": {
+    "exit": 0,
+    "log": "SUCCESS|100|99|1|",
+    "quarantine_codes": "ARITHMETIC_MISMATCH"
+   },
+   "py_changed": {
+    "exit": 0,
+    "log": "SUCCESS|100|95|5|",
+    "quarantine_codes": "NULL_VIOLATION"
+   }
+  }
+ },
+ {
+  "scenario": "S3 new domain constraint (line_number <= 32767)",
+  "rows": 100,
+  "yaml_added": 1,
+  "yaml_removed": 1,
+  "py_added": 1,
+  "py_removed": 0,
+  "runs": {
+   "yaml_v0": {
+    "exit": 1,
+    "log": "FAILED|100|0|0|22003: smallint out of range",
+    "quarantine_codes": ""
+   },
+   "yaml_changed": {
+    "exit": 0,
+    "log": "SUCCESS|100|99|1|",
+    "quarantine_codes": "DOMAIN_VIOLATION"
+   },
+   "py_v0": {
+    "exit": 1,
+    "log": "FAILED|0|0|0|NumericValueOutOfRange: smallint out of range\n",
+    "quarantine_codes": ""
+   },
+   "py_changed": {
+    "exit": 0,
+    "log": "SUCCESS|100|99|1|",
+    "quarantine_codes": "DOMAIN_VIOLATION"
+   }
+  }
+ },
+ {
+  "scenario": "S4 onboard a new source (returns)",
+  "rows": 100,
+  "yaml_added": 21,
+  "yaml_removed": 0,
+  "py_added": 151,
+  "py_removed": 0,
+  "runs": {
+   "yaml_v0": {
+    "exit": 0,
+    "log": "",
+    "quarantine_codes": ""
+   },
+   "yaml_changed": {
+    "exit": 0,
+    "log": "SUCCESS|100|99|1|",
+    "quarantine_codes": "DOMAIN_VIOLATION"
+   },
+   "py_v0": {
+    "exit": 0,
+    "log": "",
+    "quarantine_codes": ""
+   },
+   "py_changed": {
+    "exit": 0,
+    "log": "SUCCESS|100|99|1|",
+    "quarantine_codes": "DOMAIN_VIOLATION"
+   }
+  }
+ }
+]
