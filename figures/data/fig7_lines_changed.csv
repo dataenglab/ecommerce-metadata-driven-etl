@@ -1,0 +1,5 @@
+scenario,yaml_lines_changed,python_lines_changed,python_source_specific_lines
+S1 rename,4,1,1
+S2 mandatory,4,6,6
+S3 domain rule,2,1,1
+S4 new source,21,151,61

@@ -1,0 +1,5 @@
+tier,rows_processed,latency_mean_s,latency_min_s,latency_max_s
+Small,30000,4.8,4.6,5.1
+Medium,150004,30.3,18.8,34.8
+Large,300009,52.2,33.5,64.7
+Stress,3000099,654.3,547.6,761.3

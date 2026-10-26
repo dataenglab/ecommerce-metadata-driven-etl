@@ -1,0 +1,5 @@
+tier,orders_rows_s,clickstream_rows_s,payments_rows_s
+Small,3834,12100,13090
+Medium,3424,8060,7257
+Large,4044,9199,9042
+Stress,3070,6602,7029
