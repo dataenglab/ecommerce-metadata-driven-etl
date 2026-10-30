@@ -63,6 +63,28 @@ python rq3/rq3_scenarios.py                    # needs tiers/tier_10000; writes 
 
 Quick check before a full run: `python run_all.py --tiers 10000 50000 --reps 2` (about a minute).
 
+
+## Supplementary run: UTC timestamps in the source files
+
+The reported runs use local Europe/Berlin timestamps without an offset for orders and half of the
+clickstream events, as a storefront export typically delivers them. This produced the false quarantines of
+Section 5.3.2: in the hour that occurs twice when clocks go back, a local time cannot be converted to UTC.
+
+`run_utc_check.py` repeats the evaluation once per tier with every source timestamp in UTC:
+
+```bash
+python run_utc_check.py                 # all four tiers, one repetition each
+python run_utc_check.py --tiers 10000   # Small tier only
+```
+
+- `generate_data.py --utc` writes order and clickstream timestamps as ISO 8601 UTC (`...Z`). The random
+  sequence is unchanged, so records, injected defects and the injection log are identical to the
+  default run; only the timestamp strings differ.
+- `pipeline/pipeline_config_utc.yaml` is identical to `pipeline/pipeline_config.yaml` except that
+  `order_ts` is declared as `iso8601`. The engine is unchanged.
+- Results go to `results/utc_check.jsonl`; the script prints injected, correctly coded, missed and
+  falsely quarantined records per tier.
+
 ## What should match exactly, and what will differ
 
 | Result | Expected on another machine |

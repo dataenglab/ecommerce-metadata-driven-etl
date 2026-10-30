@@ -1,0 +1,7 @@
+dataset,file,record_number,expected_code
+orders,orders_001.csv,73,NULL_VIOLATION
+orders,orders_001.csv,76,TYPE_ERROR
+clickstream,clickstream_001.csv,29,JSON_PARSE_ERROR
+clickstream,clickstream_001.csv,99,NULL_VIOLATION
+payments,payments_page_0001.csv,49,NULL_VIOLATION
+payments,payments_page_0001.csv,90,INVALID_CURRENCY

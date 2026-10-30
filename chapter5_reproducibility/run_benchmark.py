@@ -45,14 +45,14 @@ print('METRICS', wall, cpu, rss_mb, code)
 """
 
 
-def run_once(tier: Path, work: Path) -> dict:
+def run_once(tier: Path, work: Path, config: Path = CONFIG) -> dict:
     shutil.rmtree(work, ignore_errors=True)
     (work / "data").mkdir(parents=True)
     shutil.copytree(tier, work / "data" / "inbox", ignore=shutil.ignore_patterns("injection_log.csv"))
     recreate_db(DB)
     env = dict(os.environ, ETL_PG_DSN=dsn_for(DB), ETL_PII_SALT="benchmark-salt")
     cpu0 = pg_cpu_seconds()
-    p = subprocess.run([sys.executable, "-c", WRAPPER, str(ENGINE), str(CONFIG)], cwd=work, env=env,
+    p = subprocess.run([sys.executable, "-c", WRAPPER, str(ENGINE), str(config)], cwd=work, env=env,
                        capture_output=True, text=True)
     cpu1 = pg_cpu_seconds()
     metrics = [l for l in p.stdout.splitlines() if l.startswith("METRICS")]
@@ -97,11 +97,12 @@ def main():
     ap.add_argument("--tier", type=Path, required=True)
     ap.add_argument("--reps", type=int, default=5)
     ap.add_argument("--results", type=Path, default=HERE / "results" / "results.jsonl")
+    ap.add_argument("--config", type=Path, default=CONFIG, help="pipeline configuration (default: pipeline/pipeline_config.yaml)")
     a = ap.parse_args()
     a.results.parent.mkdir(parents=True, exist_ok=True)
     work = HERE / "work"
     for rep in range(1, a.reps + 1):
-        res = run_once(a.tier, work)
+        res = run_once(a.tier, work, a.config.resolve())
         res.update(tier=a.tier.name, rep=rep)
         if rep == 1:
             res["quality"] = quality(a.tier)

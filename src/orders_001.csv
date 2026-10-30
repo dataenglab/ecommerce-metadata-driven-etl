@@ -1,0 +1,101 @@
+order_id,line_number,order_ts,customer_id,customer_email,customer_name,ship_country,ship_postcode,product_sku,product_name,category,quantity,unit_price,discount_amount,shipping_amount,total_amount,currency_code
+O00000001,1,2025-07-26 19:10:12,C0000283,editluebs@example.org,Bernard Kabus,CH,36884,SKU-01582,Product 01582,Garden,4,156.93,0,4.9,632.62,EUR
+O00000001,2,2025-07-26 19:10:12,C0000283,editluebs@example.org,Bernard Kabus,CH,36884,SKU-00234,Product 00234,Electronics,1,245.65,5,6.9,247.55,EUR
+O00000002,1,2025-05-17 03:12:06,C0000555,peukertrichard@example.org,Ing. Lisbeth Schleich B.Sc.,DE,62656,SKU-00652,Product 00652,Kitchen,3,191.79,0,6.9,582.27,GBP
+O00000002,2,2025-05-17 03:12:06,C0000555,peukertrichard@example.org,Ing. Lisbeth Schleich B.Sc.,DE,62656,SKU-00501,Product 00501,Toys,2,62.89,0,4.9,130.68,EUR
+O00000002,3,2025-05-17 03:12:06,C0000555,peukertrichard@example.org,Ing. Lisbeth Schleich B.Sc.,DE,62656,SKU-01107,Product 01107,Garden,4,222.32,0,0,889.28,chf
+O00000003,1,2025-02-11 04:18:37,C0000051,scheelhelene@example.net,Herr Nicolai Wirth B.Eng.,FR,90586,SKU-00110,Product 00110,Toys,1,147.84,2.5,4.9,150.24,GBP
+O00000003,2,2025-02-11 04:18:37,C0000051,scheelhelene@example.net,Herr Nicolai Wirth B.Eng.,FR,90586,SKU-01825,Product 01825,Garden,4,176.23,5,4.9,704.82,EUR
+O00000004,1,2025-10-22 14:49:26,C0000730,mariusz83@example.net,Volker Riehl MBA.,DE,13315,SKU-01657,Product 01657,Sports,1,171.35,2.5,6.9,175.75,PLN
+O00000004,2,2025-10-22 14:49:26,C0000730,mariusz83@example.net,Volker Riehl MBA.,DE,13315,SKU-00959,Product 00959,Toys,1,105.82,2.5,4.9,108.22,PLN
+O00000004,3,2025-10-22 14:49:26,C0000730,mariusz83@example.net,Volker Riehl MBA.,DE,13315,SKU-01569,Product 01569,Beauty,4,8.54,2.5,0,31.66,EUR
+O00000005,1,2025-12-14 21:32:13,C0000881,krausekarlfried@example.net,Jorge Harloff B.Sc.,FR,91966,SKU-00528,Product 00528,Sports,3,163.13,2.5,0,486.89,CHF
+O00000005,2,2025-12-14 21:32:13,C0000881,krausekarlfried@example.net,Jorge Harloff B.Sc.,FR,91966,SKU-00676,Product 00676,Kitchen,3,176.6,2.5,4.9,532.2,eur
+O00000005,3,2025-12-14 21:32:13,C0000881,krausekarlfried@example.net,Jorge Harloff B.Sc.,FR,91966,SKU-00231,Product 00231,Toys,3,82.42,2.5,4.9,249.66,EUR
+O00000006,1,2025-05-16 11:19:53,C0000786,magrit88@example.net,Ivonne Scheel-Eckbauer,DE,08222,SKU-01176,Product 01176,Electronics,2,69.55,5,0,134.1,PLN
+O00000006,2,2025-05-16 11:19:53,C0000786,magrit88@example.net,Ivonne Scheel-Eckbauer,DE,08222,SKU-01631,Product 01631,Fashion,1,178.77,0,6.9,185.67,EUR
+O00000006,3,2025-05-16 11:19:53,C0000786,magrit88@example.net,Ivonne Scheel-Eckbauer,DE,08222,SKU-01091,Product 01091,Home,4,205.95,2.5,6.9,828.2,GBP
+O00000007,1,2025-08-01 21:15:18,C0000249,yvettefoerster@example.net,Hedi Schaaf,DE,46303,SKU-01994,Product 01994,Electronics,4,220.39,2.5,0,879.06,PLN
+O00000008,1,2025-06-17 12:35:42,C0000605,traugott00@example.net,Univ.Prof. Helfried Zorbach,CH,06345,SKU-01161,Product 01161,Electronics,3,219.84,5,6.9,661.42,CHF
+O00000008,2,2025-06-17 12:35:42,C0000605,traugott00@example.net,Univ.Prof. Helfried Zorbach,CH,06345,SKU-01371,Product 01371,Kitchen,1,224.53,5,4.9,224.43,GBP
+O00000009,1,2025-05-07 10:44:37,C0000474,bozena80@example.org,Resi Klapp,DE,24056,SKU-00199,Product 00199,Beauty,4,178.25,0,4.9,717.9,EUR
+O00000009,2,2025-05-07 10:44:37,C0000474,bozena80@example.org,Resi Klapp,DE,24056,SKU-01225,Product 01225,Kitchen,1,147.01,5,4.9,146.91,CHF
+O00000009,3,2025-05-07 10:44:37,C0000474,bozena80@example.org,Resi Klapp,DE,24056,SKU-01352,Product 01352,Sports,1,24.74,0,0,24.74,GBP
+O00000010,1,2025-10-21 07:00:10,C0000924,kdussen-van@example.com,Klaus Dieter Jähn,DE,97052,SKU-01658,Product 01658,Kitchen,1,122.05,0,6.9,128.95,USD
+O00000010,2,2025-10-21 07:00:10,C0000924,kdussen-van@example.com,Klaus Dieter Jähn,DE,97052,SKU-00596,Product 00596,Kitchen,4,37.61,5,6.9,152.34,EUR
+O00000010,3,2025-10-21 07:00:10,C0000924,kdussen-van@example.com,Klaus Dieter Jähn,DE,97052,SKU-01395,Product 01395,Fashion,3,211.24,0,6.9,640.62,CHF
+O00000011,1,2025-12-23 18:03:20,C0000311,ymueller@example.org,Jovan Gute,DE,05830,SKU-01470,Product 01470,Toys,3,228.01,0,6.9,690.93,usd
+O00000011,2,2025-12-23 18:03:20,C0000311,ymueller@example.org,Jovan Gute,DE,05830,SKU-00827,Product 00827,Fashion,2,194.45,0,0,388.9,USD
+O00000012,1,2025-01-21 16:10:56,C0000991,bhornich@example.org,Dipl.-Ing. Karl-Jürgen Holsten MBA.,PL,88360,SKU-01440,Product 01440,Garden,3,131.59,0,4.9,399.67,EUR
+O00000013,1,2025-09-30 19:10:56,C0000442,olenahoevel@example.org,Martina Dörschner,DE,77053,SKU-00807,Product 00807,Toys,3,106.31,2.5,4.9,321.33,USD
+O00000013,2,2025-09-30 19:10:56,C0000442,olenahoevel@example.org,Martina Dörschner,DE,77053,SKU-00432,Product 00432,Sports,2,126.19,2.5,0,249.88,EUR
+O00000013,3,2025-09-30 19:10:56,C0000442,olenahoevel@example.org,Martina Dörschner,DE,77053,SKU-01727,Product 01727,Garden,3,217.46,2.5,0,649.88,CHF
+O00000014,1,2025-02-22 04:33:23,C0000128,xbutte@example.org,Gisbert Dippel,DE,22047,SKU-00146,Product 00146,Electronics,1,238.54,0,6.9,245.44,CHF
+O00000015,1,2025-02-22 18:31:18,C0000447,hedwig55@example.net,Edeltraut Otto,AT,04608,SKU-00281,Product 00281,Garden,4,70.38,2.5,6.9,285.92,EUR
+O00000016,1,2025-03-11 20:49:58,C0000638,oderwaldelzbieta@example.net,Ingrid Thanel,CH,02437,SKU-01043,Product 01043,Electronics,4,98.93,5,4.9,395.62,EUR
+O00000016,2,2025-03-11 20:49:58,C0000638,oderwaldelzbieta@example.net,Ingrid Thanel,CH,02437,SKU-00380,Product 00380,Toys,4,198.64,5,0,789.56,PLN
+O00000017,1,2025-10-04 15:31:57,C0000242,wagenknechtmagrit@example.org,Gert Koch,DE,26221,SKU-00551,Product 00551,Sports,4,190.07,5,6.9,762.18,EUR
+O00000017,2,2025-10-04 15:31:57,C0000242,wagenknechtmagrit@example.org,Gert Koch,DE,26221,SKU-01163,Product 01163,Sports,4,144.29,0,0,577.16,PLN
+O00000017,3,2025-10-04 15:31:57,C0000242,wagenknechtmagrit@example.org,Gert Koch,DE,26221,SKU-00163,Product 00163,Kitchen,2,153.42,5,4.9,306.74,EUR
+O00000018,1,2025-12-12 15:36:48,C0000535,renatahuebel@example.net,Univ.Prof. Willy Schmidtke,PL,98316,SKU-00181,Product 00181,Toys,2,189.47,2.5,6.9,383.34,CHF
+O00000018,2,2025-12-12 15:36:48,C0000535,renatahuebel@example.net,Univ.Prof. Willy Schmidtke,PL,98316,SKU-00159,Product 00159,Home,3,89.48,5,0,263.44,USD
+O00000018,3,2025-12-12 15:36:48,C0000535,renatahuebel@example.net,Univ.Prof. Willy Schmidtke,PL,98316,SKU-01594,Product 01594,Beauty,1,131.94,2.5,4.9,134.34,EUR
+O00000019,1,2025-10-13 01:38:50,C0000587,arne76@example.net,Ing. Alexa Textor,FR,90569,SKU-00862,Product 00862,Electronics,3,212.98,0,4.9,643.84,PLN
+O00000019,2,2025-10-13 01:38:50,C0000587,arne76@example.net,Ing. Alexa Textor,FR,90569,SKU-01890,Product 01890,Beauty,3,3.05,5,4.9,9.05,EUR
+O00000020,1,2025-03-07 16:55:57,C0000592,nhermann@example.net,Marie-Therese Wiek B.A.,DE,82973,SKU-00105,Product 00105,Toys,3,161.5,5,0,479.5,EUR
+O00000020,2,2025-03-07 16:55:57,C0000592,nhermann@example.net,Marie-Therese Wiek B.A.,DE,82973,SKU-00259,Product 00259,Fashion,1,211.57,0,4.9,216.47,EUR
+O00000020,3,2025-03-07 16:55:57,C0000592,nhermann@example.net,Marie-Therese Wiek B.A.,DE,82973,SKU-00563,Product 00563,Beauty,3,115.83,0,6.9,354.39,EUR
+O00000021,1,2025-08-18 21:41:50,C0000931,jolanthefritsch@example.com,Axel Säuberlich B.Sc.,AT,30205,SKU-00309,Product 00309,Beauty,4,49.27,0,0,197.08,PLN
+O00000021,2,2025-08-18 21:41:50,C0000931,jolanthefritsch@example.com,Axel Säuberlich B.Sc.,AT,30205,SKU-00483,Product 00483,Fashion,4,153.69,0,6.9,621.66,EUR
+O00000021,3,2025-08-18 21:41:50,C0000931,jolanthefritsch@example.com,Axel Säuberlich B.Sc.,AT,30205,SKU-00172,Product 00172,Sports,2,87.2,5,0,169.4,EUR
+O00000022,1,2025-05-29 21:22:30,C0000788,zklapp@example.com,Erdmute Lorch,DE,41465,SKU-01353,Product 01353,Sports,4,113.43,0,0,453.72,EUR
+O00000023,1,2025-09-07 12:18:26,C0000055,karl-hermann94@example.net,Jochem Grein Groth,DE,36783,SKU-01547,Product 01547,Kitchen,1,245.21,0,0,245.21,EUR
+O00000023,2,2025-09-07 12:18:26,C0000055,karl-hermann94@example.net,Jochem Grein Groth,DE,36783,SKU-00617,Product 00617,Home,4,230.79,5,0,918.16,PLN
+O00000024,1,2025-07-04 09:29:43,C0000399,bruni84@example.com,Harold Eberhardt,FR,93998,SKU-00297,Product 00297,Kitchen,4,66.21,0,4.9,269.74,EUR
+O00000024,2,2025-07-04 09:29:43,C0000399,bruni84@example.com,Harold Eberhardt,FR,93998,SKU-00782,Product 00782,Electronics,3,163.05,5,6.9,491.05,EUR
+O00000025,1,2025-07-26 10:00:46,C0000939,tmueller@example.org,Vitus Blümel,DE,38960,SKU-00724,Product 00724,Fashion,4,69.3,5,6.9,279.1,EUR
+O00000025,2,2025-07-26 10:00:46,C0000939,tmueller@example.org,Vitus Blümel,DE,38960,SKU-00553,Product 00553,Home,3,132.8,0,4.9,403.3,EUR
+O00000025,3,2025-07-26 10:00:46,C0000939,tmueller@example.org,Vitus Blümel,DE,38960,SKU-00944,Product 00944,Home,2,193.54,5,0,382.08,CHF
+O00000026,1,2025-03-11 21:56:41,C0000706,slavko77@example.com,Ing. Romy Oestrovsky,CH,46027,SKU-01121,Product 01121,Home,1,75.75,0,0,75.75,eur
+O00000026,2,2025-03-11 21:56:41,C0000706,slavko77@example.com,Ing. Romy Oestrovsky,CH,46027,SKU-01075,Product 01075,Garden,1,244.04,2.5,4.9,246.44,EUR
+O00000027,1,2025-03-17 00:37:54,C0000257,xwirth@example.org,Dr. Ada Lange B.Sc.,CH,85050,SKU-00048,Product 00048,Sports,1,29.34,0,6.9,36.24,EUR
+O00000028,1,2025-08-21 20:40:22,C0000973,andrzejscheuermann@example.org,Ada Niemeier B.Sc.,DE,34967,SKU-00249,Product 00249,Home,1,79.47,0,6.9,86.37,CHF
+O00000028,2,2025-08-21 20:40:22,C0000973,andrzejscheuermann@example.org,Ada Niemeier B.Sc.,DE,34967,SKU-01564,Product 01564,Home,2,166.29,0,6.9,339.48,EUR
+O00000028,3,2025-08-21 20:40:22,C0000973,andrzejscheuermann@example.org,Ada Niemeier B.Sc.,DE,34967,SKU-00956,Product 00956,Garden,1,47.2,2.5,4.9,49.6,PLN
+O00000029,1,2025-09-17 08:17:20,C0000925,dullrich@example.com,Dan Klemt,DE,58681,SKU-00527,Product 00527,Home,2,84.68,0,4.9,174.26,EUR
+O00000029,2,2025-09-17 08:17:20,C0000925,dullrich@example.com,Dan Klemt,DE,58681,SKU-00795,Product 00795,Toys,3,116.01,0,4.9,352.93,EUR
+O00000030,1,2025-06-21 04:27:18,C0000182,ernest28@example.com,Otto Hauffer-Adler,DE,47868,SKU-01007,Product 01007,Electronics,2,39.64,5,4.9,79.18,EUR
+O00000031,1,2025-02-25 21:59:23,C0000111,zruppersberger@example.net,Ing. Belinda Lachmann,PL,52975,SKU-01574,Product 01574,Fashion,4,230.84,0,6.9,930.26,EUR
+O00000031,2,2025-02-25 21:59:23,C0000111,zruppersberger@example.net,Ing. Belinda Lachmann,PL,52975,SKU-01465,Product 01465,Home,3,187.48,0,0,562.44,GBP
+O00000031,3,2025-02-25 21:59:23,C0000111,zruppersberger@example.net,Ing. Belinda Lachmann,PL,52975,SKU-01490,Product 01490,Kitchen,3,144.46,2.5,0,430.88,EUR
+O00000032,1,2025-09-06 18:21:26,C0000668,schmiedeckeviktoria@example.com,Herr Olaf Bohlander,FR,61526,SKU-01910,Product 01910,Electronics,1,88.94,2.5,4.9,91.34,EUR
+O00000033,1,2025-06-02 01:27:48,C0000926,gerhildflantz@example.com,Irma Trubin,DE,44617,SKU-00007,Product 00007,Toys,4,214.44,2.5,4.9,860.16,PLN
+O00000033,2,2025-06-02 01:27:48,C0000926,gerhildflantz@example.com,Irma Trubin,DE,44617,SKU-01599,Product 01599,Home,1,108.1,5,0,103.1,pln
+O00000033,3,2025-06-02 01:27:48,C0000926,gerhildflantz@example.com,Irma Trubin,DE,44617,SKU-01675,Product 01675,Electronics,,41.53,0,6.9,173.02,EUR
+O00000034,1,2025-09-22 21:10:10,C0000341,angelicaziegert@example.net,Martha Stadelmann,PL,66658,SKU-00820,Product 00820,Home,1,142.65,0,4.9,147.55,EUR
+O00000034,2,2025-09-22 21:10:10,C0000341,angelicaziegert@example.net,Martha Stadelmann,PL,66658,SKU-00164,Product 00164,Fashion,4,10.15,0,6.9,47.5,USD
+O00000035,1,2025-05-30 06:39:53,C0000040,rohtjacob@example.org,Blanka Mitschke B.Eng.,DE,98687,SKU-00391,Product 00391,Sports,two,118.06,2.5,0,351.68,EUR
+O00000035,2,2025-05-30 06:39:53,C0000040,rohtjacob@example.org,Blanka Mitschke B.Eng.,DE,98687,SKU-00996,Product 00996,Fashion,1,60.7,2.5,6.9,65.1,EUR
+O00000035,3,2025-05-30 06:39:53,C0000040,rohtjacob@example.org,Blanka Mitschke B.Eng.,DE,98687,SKU-00395,Product 00395,Sports,1,208.35,5,0,203.35,EUR
+O00000036,1,2025-07-30 00:18:36,C0000811,rosemannburghard@example.net,Pavel Kruschwitz MBA.,DE,27868,SKU-00630,Product 00630,Toys,4,139.36,5,4.9,557.34,EUR
+O00000036,2,2025-07-30 00:18:36,C0000811,rosemannburghard@example.net,Pavel Kruschwitz MBA.,DE,27868,SKU-00075,Product 00075,Beauty,3,241.92,0,4.9,730.66,EUR
+O00000036,3,2025-07-30 00:18:36,C0000811,rosemannburghard@example.net,Pavel Kruschwitz MBA.,DE,27868,SKU-00830,Product 00830,Sports,1,137.95,0,6.9,144.85,EUR
+O00000037,1,2025-09-21 10:08:36,C0000962,mattiashenk@example.com,Dipl.-Ing. Gilbert Weiß B.Sc.,DE,76515,SKU-00305,Product 00305,Kitchen,2,159.09,0,0,318.18,EUR
+O00000037,2,2025-09-21 10:08:36,C0000962,mattiashenk@example.com,Dipl.-Ing. Gilbert Weiß B.Sc.,DE,76515,SKU-01339,Product 01339,Home,1,109.91,2.5,6.9,114.31,pln
+O00000037,3,2025-09-21 10:08:36,C0000962,mattiashenk@example.com,Dipl.-Ing. Gilbert Weiß B.Sc.,DE,76515,SKU-01328,Product 01328,Sports,2,201.16,0,0,402.32,EUR
+O00000038,1,2025-11-05 06:47:35,C0000840,roskothcarmen@example.org,Frau Angelique Jopich B.Sc.,FR,05468,SKU-00934,Product 00934,Home,2,231.38,5,0,457.76,EUR
+O00000039,1,2025-07-13 03:42:47,C0000116,jesselviktor@example.com,Andy Koch,DE,11998,SKU-01636,Product 01636,Toys,2,154.95,0,0,309.9,PLN
+O00000039,2,2025-07-13 03:42:47,C0000116,jesselviktor@example.com,Andy Koch,DE,11998,SKU-01389,Product 01389,Electronics,4,127.52,0,0,510.08,GBP
+O00000039,3,2025-07-13 03:42:47,C0000116,jesselviktor@example.com,Andy Koch,DE,11998,SKU-01117,Product 01117,Fashion,2,61.67,0,0,123.34,GBP
+O00000040,1,2025-05-11 09:07:17,C0000177,traedel@example.com,Valentin Rose,FR,08839,SKU-00247,Product 00247,Fashion,3,242.02,0,4.9,730.96,EUR
+O00000041,1,2025-03-06 02:58:06,C0000566,marlengraf@example.net,Hartwig Mies,DE,12075,SKU-00498,Product 00498,Sports,1,55.85,0,0,55.85,CHF
+O00000041,2,2025-03-06 02:58:06,C0000566,marlengraf@example.net,Hartwig Mies,DE,12075,SKU-01254,Product 01254,Garden,4,123.93,0,0,495.72,EUR
+O00000042,1,2025-01-03 20:19:57,C0000006,meryem03@example.org,Heidrun Heuser,DE,39537,SKU-01896,Product 01896,Fashion,1,230.02,5,4.9,229.92,EUR
+O00000043,1,2025-02-19 07:43:23,C0000708,eckarddrubin@example.org,Ana Ritter,FR,53544,SKU-00293,Product 00293,Sports,3,174.93,5,4.9,524.69,EUR
+O00000044,1,2025-09-26 16:51:53,C0000625,angelique37@example.com,Ivanka Heuser-Rose,DE,16592,SKU-01221,Product 01221,Garden,2,181.16,2.5,6.9,366.72,CHF
+O00000045,1,2025-10-31 23:12:09,C0000846,christl55@example.org,Dietrich Tröst,DE,47472,SKU-00712,Product 00712,Fashion,4,28.25,0,6.9,119.9,EUR
+O00000045,2,2025-10-31 23:12:09,C0000846,christl55@example.org,Dietrich Tröst,DE,47472,SKU-01085,Product 01085,Electronics,1,230.5,5,4.9,230.4,USD
+O00000046,1,2025-03-27 04:48:06,C0000519,armingroettner@example.org,Dipl.-Ing. Hans-Ludwig Bolnbach B.Eng.,AT,87005,SKU-01577,Product 01577,Fashion,2,236.97,0,0,473.94,EUR
+O00000046,2,2025-03-27 04:48:06,C0000519,armingroettner@example.org,Dipl.-Ing. Hans-Ludwig Bolnbach B.Eng.,AT,87005,SKU-01403,Product 01403,Beauty,4,169.54,2.5,0,675.66,EUR
+O00000047,1,2025-09-08 12:32:19,C0000055,karl-hermann94@example.net,Jochem Grein Groth,DE,36783,SKU-00583,Product 00583,Sports,2,169.35,2.5,4.9,341.1,EUR
+O00000047,2,2025-09-08 12:32:19,C0000055,karl-hermann94@example.net,Jochem Grein Groth,DE,36783,SKU-00088,Product 00088,Sports,1,31.68,0,6.9,38.58,EUR

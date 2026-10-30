@@ -1,0 +1,132 @@
+# pipeline_config_utc.yaml : supplementary configuration for source files with UTC timestamps.
+# Identical to pipeline_config.yaml except that order_ts is declared as ISO 8601 with an offset.
+# pipeline_config.yaml : declarative definition of the e-commerce batch ETL
+pipeline:
+  name: ecommerce_batch_etl
+  config_version: "1.0.0"
+  paths:
+    inbox: data/inbox
+    archive: data/archive            # processed files moved here, timestamp-prefixed
+  database:
+    dsn_env: ETL_PG_DSN              # connection string read from environment
+  load:
+    batch_size: 5000                 # rows per psycopg2 execute_values page
+    transaction_scope: per_source    # all-or-nothing load per source file
+  pii:
+    algorithm: hmac_sha256
+    salt_env: ETL_PII_SALT           # secret salt; never stored in this file
+
+defaults:
+  delimiter: ","
+  encoding: utf-8
+  timezone: Europe/Berlin            # applied to timestamps without an offset
+
+sources:
+
+  orders:
+    file_pattern: "orders_*.csv"
+    target: dwh.fact_order_line
+    business_key: [order_id, line_number]
+    mandatory_columns:               # contract: run halts if any is absent
+      [order_id, line_number, order_ts, customer_id, product_sku,
+       product_name, category, quantity, unit_price, total_amount, currency_code]
+    columns:
+      order_id:        {type: string,    nullable: false}
+      line_number:     {type: integer,   nullable: false, min: 1, max: 32767}
+      order_ts:        {type: timestamp, nullable: false, format: iso8601}   # UTC with offset (supplementary run)
+      customer_id:     {type: string,    nullable: false}
+      customer_email:  {type: string,    nullable: true,  pattern: '^[^@\s]+@[^@\s]+\.[^@\s]+$'}
+      customer_name:   {type: string,    nullable: true}
+      ship_country:    {type: string,    nullable: true,  pattern: "^[A-Z]{2}$"}
+      ship_postcode:   {type: string,    nullable: true}
+      product_sku:     {type: string,    nullable: false}
+      product_name:    {type: string,    nullable: false}
+      category:        {type: string,    nullable: false}
+      quantity:        {type: integer,   nullable: false, min: 1}
+      unit_price:      {type: decimal,   nullable: false, min: 0}
+      discount_amount: {type: decimal,   nullable: true,  min: 0, default: 0}
+      shipping_amount: {type: decimal,   nullable: true,  min: 0, default: 0}
+      total_amount:    {type: decimal,   nullable: false}
+      currency_code:   {type: string,    nullable: false, standardise: upper,
+                        allowed: [EUR, USD, GBP, CHF, PLN, SEK]}
+    rules:
+      - name: total_arithmetic
+        expression: "abs(total_amount - (unit_price * quantity + shipping_amount - discount_amount)) <= 0.01"
+        error_code: ARITHMETIC_MISMATCH
+    pii:
+      customer_id:    {action: hash,     output: customer_hash}
+      customer_email: {action: hash,     output: email_hash, normalise: lower}
+      customer_name:  {action: drop}
+      ship_postcode:  {action: truncate, length: 2, output: ship_postcode_prefix}
+    dimensions:
+      dwh.dim_customer:
+        business_key: customer_hash
+        scd2_attributes: [ship_country, ship_postcode_prefix]
+        type1_attributes: [email_hash]
+        effective_from: order_ts
+      dwh.dim_product:
+        business_key: product_sku
+        scd2_attributes: [product_name, category]
+        effective_from: order_ts
+
+  clickstream:
+    file_pattern: "clickstream_*.csv"
+    target: dwh.fact_clickstream_event
+    business_key: [event_id]
+    mandatory_columns: [event_id, session_id, event_ts, event_payload]
+    columns:
+      event_id:      {type: string,    nullable: false}
+      session_id:    {type: string,    nullable: false}
+      event_ts:      {type: timestamp, nullable: false, format: iso8601}
+      customer_id:   {type: string,    nullable: true}       # null for anonymous sessions
+      event_payload: {type: json,      nullable: false}
+    json_fields:
+      event_payload:
+        on_parse_error: JSON_PARSE_ERROR
+        flatten:
+          event_type:  {path: type, type: string,  nullable: false,
+                        allowed: [page_view, add_to_cart, remove_from_cart]}
+          page_url:    {path: page, type: string,  nullable: true}
+          product_sku: {path: sku,  type: string,  nullable: true}
+          quantity:    {path: qty,  type: integer, nullable: true, min: 1}
+    pii:
+      customer_id: {action: hash, output: customer_hash}
+    lookups:                          # resolved against existing dimension versions
+      customer_sk: {dimension: dwh.dim_customer, key: customer_hash, at: event_ts, required: false}
+      product_sk:  {dimension: dwh.dim_product,  key: product_sku,   at: event_ts, required: false}
+
+  payments:
+    file_pattern: "payments_page_*.csv"
+    target: dwh.fact_payment
+    business_key: [payment_id]        # duplicates across page boundaries -> DUPLICATE_KEY
+    mandatory_columns:
+      [payment_id, created, gateway, transaction_type, status, amount_minor, currency, metadata]
+    columns:
+      payment_id:       {type: string,    nullable: false}
+      created:          {type: timestamp, nullable: false, format: epoch_seconds, rename: created_at}
+      gateway:          {type: string,    nullable: false, allowed: [stripe, paypal]}
+      transaction_type: {type: string,    nullable: false, allowed: [charge, refund]}
+      status:           {type: string,    nullable: false, rename: payment_status,
+                         allowed: [succeeded, pending, failed]}
+      payment_method:   {type: string,    nullable: true}
+      amount_minor:     {type: integer,   nullable: false}
+      currency:         {type: string,    nullable: false, standardise: upper,
+                         rename: currency_code, allowed: [EUR, USD, GBP, CHF, PLN, SEK],
+                         error_code: INVALID_CURRENCY}
+      payer_email:      {type: string,    nullable: true}
+      payer_name:       {type: string,    nullable: true}
+      metadata:         {type: json,      nullable: false}
+    json_fields:
+      metadata:
+        on_parse_error: JSON_PARSE_ERROR
+        flatten:
+          order_id:      {path: order_id, type: string, nullable: true}
+          sales_channel: {path: channel,  type: string, nullable: true}
+    rules:
+      - name: refund_sign
+        when: "transaction_type != 'refund'"
+        expression: "amount_minor >= 0"
+        error_code: NEGATIVE_AMOUNT
+    pii:
+      payer_email: {action: drop}     # not needed: payments link to orders via order_id
+      payer_name:  {action: drop}

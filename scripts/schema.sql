@@ -1,6 +1,6 @@
 -- ============================================================
 -- schema.sql : analytical warehouse for the e-commerce batch ETL
--- Target: PostgreSQL 15
+-- Target: PostgreSQL 16
 -- ============================================================
 CREATE SCHEMA IF NOT EXISTS etl;     -- control tables
 CREATE SCHEMA IF NOT EXISTS dwh;     -- star schema

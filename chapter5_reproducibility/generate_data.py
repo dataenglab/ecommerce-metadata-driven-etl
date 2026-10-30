@@ -4,6 +4,11 @@ Writes orders, clickstream and payment-page CSV files for one volume tier and an
 injection log (ground truth) recording every deliberately defective record.
 
     python generate_data.py --rows 10000 --out tier_10k --seed 42
+    python generate_data.py --rows 10000 --out tier_10k_utc --seed 42 --utc
+
+With --utc, every order and clickstream timestamp is written as ISO 8601 in UTC with a 'Z' offset
+instead of local Europe/Berlin time. The random sequence is unchanged, so the records, the injected
+defects and the injection log are identical to the default run; only the timestamp strings differ.
 """
 import argparse
 import csv
@@ -57,7 +62,7 @@ def build_pools(fake, rng, n):
     return customers, products, reclass, moves
 
 
-def orders(n, rng, customers, products, reclass, moves, log):
+def orders(n, rng, customers, products, reclass, moves, log, utc=False):
     rows, line_no, order_no = [], 0, 0
     while len(rows) < n:
         order_no += 1
@@ -72,7 +77,8 @@ def orders(n, rng, customers, products, reclass, moves, log):
                 country, postcode = moves[cust["id"]][1], moves[cust["id"]][2]
             qty, disc, ship = rng.randint(1, 4), rng.choice([0, 0, 0, 2.5, 5]), rng.choice([0, 4.9, 6.9])
             total = round(p["price"] * qty + ship - disc, 2)
-            local = ts.astimezone(BERLIN).strftime("%Y-%m-%d %H:%M:%S")   # storefront exports local time
+            local = (ts.strftime("%Y-%m-%dT%H:%M:%SZ") if utc                 # supplementary UTC run
+                     else ts.astimezone(BERLIN).strftime("%Y-%m-%d %H:%M:%S"))   # storefront exports local time
             rows.append([f"O{order_no:08d}", line, local, cust["id"], cust["email"], cust["name"], country,
                          postcode, p["sku"], p["name"], cat, qty, p["price"], disc, ship, total,
                          rng.choice(CURRENCIES).lower() if rng.random() < 0.05 else rng.choice(CURRENCIES)])
@@ -95,11 +101,11 @@ def orders(n, rng, customers, products, reclass, moves, log):
     return rows
 
 
-def clickstream(n, rng, customers, products, log):
+def clickstream(n, rng, customers, products, log, utc=False):
     rows = []
     for i in range(n):
         ts = utc_instant(rng)
-        stamp = ts.strftime("%Y-%m-%dT%H:%M:%SZ") if i % 2 else ts.astimezone(BERLIN).strftime("%Y-%m-%dT%H:%M:%S")
+        stamp = ts.strftime("%Y-%m-%dT%H:%M:%SZ") if (i % 2 or utc) else ts.astimezone(BERLIN).strftime("%Y-%m-%dT%H:%M:%S")
         etype = rng.choice(["page_view"] * 6 + ["add_to_cart", "remove_from_cart"])
         payload = {"type": etype, "page": f"/p/{rng.randrange(5000)}"}
         if etype != "page_view":
@@ -178,14 +184,15 @@ def main():
     ap.add_argument("--rows", type=int, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--utc", action="store_true", help="write all order and clickstream timestamps in UTC")
     a = ap.parse_args()
     rng, fake = random.Random(a.seed), Faker("de_DE")
     fake.seed_instance(a.seed)
     a.out.mkdir(parents=True, exist_ok=True)
     customers, products, reclass, moves = build_pools(fake, rng, a.rows)
     log = []
-    write(a.out / "orders_001.csv", H_ORD, orders(a.rows, rng, customers, products, reclass, moves, log))
-    write(a.out / "clickstream_001.csv", H_CLK, clickstream(a.rows, rng, customers, products, log))
+    write(a.out / "orders_001.csv", H_ORD, orders(a.rows, rng, customers, products, reclass, moves, log, a.utc))
+    write(a.out / "clickstream_001.csv", H_CLK, clickstream(a.rows, rng, customers, products, log, a.utc))
     for p, page in enumerate(payments(a.rows, rng, fake, log), 1):
         write(a.out / f"payments_page_{p:04d}.csv", H_PAY, page)
     write(a.out / "injection_log.csv", ["dataset", "file", "record_number", "expected_code"], log)

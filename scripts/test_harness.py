@@ -23,10 +23,13 @@ A blank customer_id value (scenario A) and a missing customer_id column
 row, the second stops the run before any row of that file is loaded.
 
 Usage
-    python test_harness.py [--admin-dsn "host=localhost user=postgres dbname=postgres"]
-                           [--db-name etl_harness] [--engine etl_engine.py]
-                           [--config pipeline_config.yaml] [--schema schema.sql]
+    python scripts/test_harness.py [--admin-dsn "host=localhost user=postgres dbname=postgres"]
+                           [--db-name etl_harness] [--engine scripts/etl_engine.py]
+                           [--config config/pipeline_config.yaml] [--schema scripts/schema.sql]
                            [--drop-db]
+
+    Run from the repository root. By default the harness uses scripts/etl_engine.py,
+    scripts/schema.sql and config/pipeline_config.yaml, so only --admin-dsn is needed.
 
 The admin DSN must be allowed to CREATE and DROP the harness database. It is
 read from --admin-dsn or the environment variable ETL_PG_ADMIN_DSN. The
@@ -355,7 +358,7 @@ def main() -> int:
     parser.add_argument("--admin-dsn", default=os.environ.get("ETL_PG_ADMIN_DSN", "dbname=postgres"))
     parser.add_argument("--db-name", default="etl_harness")
     parser.add_argument("--engine", type=Path, default=HERE / "etl_engine.py")
-    parser.add_argument("--config", type=Path, default=HERE / "pipeline_config.yaml")
+    parser.add_argument("--config", type=Path, default=HERE.parent / "config" / "pipeline_config.yaml")
     parser.add_argument("--schema", type=Path, default=HERE / "schema.sql")
     parser.add_argument("--drop-db", action="store_true",
                         help="drop the harness database at the end (default: keep it for inspection)")

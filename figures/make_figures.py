@@ -1,7 +1,7 @@
-"""Generate Figures 5-8 of the thesis from the measured results in data/.
+"""Generate Figures 6-9 of the thesis from the measured results in data/.
 
 Usage:  python make_figures.py
-Output: fig5_latency.png ... fig8_cost.png (300 dpi) in this folder.
+Output: fig6_latency.png ... fig9_cost.png (300 dpi) in this folder.
 Requires: pandas, matplotlib.
 """
 from pathlib import Path
@@ -38,8 +38,8 @@ def label_bars(ax, bars, fmt="{:,.0f}"):
                     xytext=(0, 2), textcoords="offset points", ha="center", va="bottom", fontsize=7.5)
 
 
-def fig5():
-    df = pd.read_csv(DATA / "fig5_latency.csv")
+def fig6():
+    df = pd.read_csv(DATA / "fig6_latency.csv")
     fig, ax = plt.subplots(figsize=SIZE)
     err = [df.latency_mean_s - df.latency_min_s, df.latency_max_s - df.latency_mean_s]
     ax.errorbar(df.rows_processed, df.latency_mean_s, yerr=err, fmt="o", color=DARK,
@@ -53,7 +53,7 @@ def fig5():
     ax.set_xlabel("Rows processed per run (log scale)")
     ax.set_ylabel("End-to-end latency, s (log scale)")
     ax.grid(True, which="major", color="#DDDDDD", linewidth=0.6, zorder=0)
-    fig.savefig(HERE / "fig5_latency.png"); plt.close(fig)
+    fig.savefig(HERE / "fig6_latency.png"); plt.close(fig)
 
 
 def grouped(ax, cats, series, colors, width):
@@ -68,8 +68,8 @@ def grouped(ax, cats, series, colors, width):
     return out
 
 
-def fig6():
-    df = pd.read_csv(DATA / "fig6_throughput.csv")
+def fig7():
+    df = pd.read_csv(DATA / "fig7_throughput.csv")
     fig, ax = plt.subplots(figsize=SIZE)
     bars = grouped(ax, df.tier, [("Order lines", df.orders_rows_s),
                                  ("Clickstream events", df.clickstream_rows_s),
@@ -80,11 +80,11 @@ def fig6():
     ax.set_xlabel("Volume tier")
     ax.set_ylim(0, 15000)
     ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.12))
-    fig.savefig(HERE / "fig6_throughput.png"); plt.close(fig)
+    fig.savefig(HERE / "fig7_throughput.png"); plt.close(fig)
 
 
-def fig7():
-    df = pd.read_csv(DATA / "fig7_lines_changed.csv")
+def fig8():
+    df = pd.read_csv(DATA / "fig8_lines_changed.csv")
     fig, ax = plt.subplots(figsize=SIZE)
     bars = grouped(ax, df.scenario, [("YAML configuration", df.yaml_lines_changed),
                                      ("Python baseline, total", df.python_lines_changed),
@@ -95,11 +95,11 @@ def fig7():
     ax.set_xlabel("Change scenario")
     ax.set_ylim(0, 170)
     ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.12))
-    fig.savefig(HERE / "fig7_lines_changed.png"); plt.close(fig)
+    fig.savefig(HERE / "fig8_lines_changed.png"); plt.close(fig)
 
 
-def fig8():
-    df = pd.read_csv(DATA / "fig8_cost.csv")
+def fig9():
+    df = pd.read_csv(DATA / "fig9_cost.csv")
     fig, ax = plt.subplots(figsize=SIZE)
     labels = ["Profile " + p for p in df.profile]
     bars = grouped(ax, labels, [("Managed stack (Fivetran + Snowflake), USD", df.managed_stack_usd),
@@ -112,10 +112,10 @@ def fig8():
     ax.set_ylabel("Monthly cost, list prices excl. VAT\n(log scale)")
     ax.set_xlabel("Load profile")
     ax.legend(frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(0.5, 1.12))
-    fig.savefig(HERE / "fig8_cost.png"); plt.close(fig)
+    fig.savefig(HERE / "fig9_cost.png"); plt.close(fig)
 
 
 if __name__ == "__main__":
-    for f in (fig5, fig6, fig7, fig8):
+    for f in (fig6, fig7, fig8, fig9):
         f()
     print("Figures written to", HERE)
